@@ -29,11 +29,7 @@ const MatriculeFiscaleManager = ({
     matriculeFiscale,
     setMatriculeFiscale,
 }) => {
-    const defaultMatricules = [
-        { matriculeFiscale: "ABC12345", shop: "Boutique A" },
-        { matriculeFiscale: "XYZ67890", shop: "Boutique B" },
-        { matriculeFiscale: "XXX98765", shop: "Boutique C" },
-    ];
+
 
     const [matriculeList, setMatriculeList] = useState([]);
     const [newShop, setNewShop] = useState('');
@@ -46,9 +42,16 @@ const MatriculeFiscaleManager = ({
 
     // Load initial data from localStorage or defaults
     useEffect(() => {
-        const stored = JSON.parse(localStorage.getItem('matriculeList')) || defaultMatricules;
-        setMatriculeList(stored);
+        const defaultMatricules = [
+            { matriculeFiscale: "ABC12345", shop: "Boutique A" },
+            { matriculeFiscale: "XYZ67890", shop: "Boutique B" },
+            { matriculeFiscale: "XXX98765", shop: "Boutique C" },
+        ];
+
+        const storedMatricules = JSON.parse(localStorage.getItem('matriculeList')) || defaultMatricules;
+        setMatriculeList(storedMatricules);
     }, []);
+
 
     // Save data to localStorage
     const saveMatriculeList = (list) => {

@@ -619,13 +619,13 @@ const FormService = ({ handleClose }) => {
                                             value={item.prixTTC ? Number(item.prixTTC).toFixed(2) : '0.00'} // Safely handle non-numeric values
                                         />
                                     </Grid>
-                                    <Grid item xs={1} style={{ display: "flex", alignItems: "flex-end" }}>
+                                    {items.length > 1 && <Grid item xs={1} style={{ display: "flex", alignItems: "flex-end" }}>
                                         <IconButton
                                             onClick={() => handleDeleteItem(index)}
                                         >
                                             <DeleteIcon color="error" />
                                         </IconButton>
-                                    </Grid>
+                                    </Grid>}
                                 </Grid>
                             ))}
                             <Button
@@ -641,7 +641,7 @@ const FormService = ({ handleClose }) => {
                         </Grid>
 
                         {/* Total Prix TTC */}
-                        <Grid item xs={12} style={{ textAlign: "right", marginTop: "20px" }}>
+                        <Grid item xs={12} style={{ textAlign: "right", marginTop: "-25px" }}>
                             <h3 style={{ color: "#444" }}>Total Prix TTC: {totalPrixTTC.toFixed(2)} TND</h3>
                         </Grid>
 
