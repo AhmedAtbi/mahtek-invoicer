@@ -177,56 +177,62 @@ const FormService = ({ handleClose }) => {
     } = useFormState();
 
 
-    /**
-     * Whenever items or tvaRate changes,
-     * recalculate prixTTC for each item and update them in state.
-     */
+    // Utility for precise division
+    const preciseDivide = (a, b) => Math.round((a / b) * 100) / 100;
+
+    // Utility for precise multiplication
+    const preciseMultiply = (a, b) => Math.round(a * b * 100) / 100;
+
+
     useEffect(() => {
         const updated = items.map((item) => {
-            const newTTC = item.prixHT * (1 + parseFloat(item.tvaRate || 0) / 100);
-            // If it’s already the same TTC, no need to do anything special for that item
+            const newTTC = preciseMultiply(item.prixHT || 0, 1 + parseFloat(item.tvaRate || 0) / 100);
             return { ...item, prixTTC: newTTC };
         });
 
-        // Check if updated is truly different from items
-        // e.g. compare length or deep-compare each field
-        let changed = false;
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].prixTTC !== updated[i].prixTTC) {
-                changed = true;
-                break;
-            }
+        // Check if the new array is different from the current state
+        const isChanged = updated.some((newItem, index) => newItem.prixTTC !== items[index].prixTTC);
+
+        if (isChanged) {
+            setItems(updated); // Only update state if necessary
         }
-        if (changed) {
-            setItems(updated);
-        }
-    }, [items]);
+    }, [items, setItems]);
+
+
+    // Memoize the setItems function
+    const memoizedSetItems = useCallback((newItems) => {
+        setItems(newItems);
+    }, [setItems]);
 
     useEffect(() => {
-        if (isMOTOForm) {
-            setItems([{
-                typeArticle: 'MOTOCYCLE',
-                modele: '',
-                designation: '',
-                couleur: '',
-                quantite: 0,
-                prixHT: 0,
-                prixTTC: 0,
-                tvaRate: 0,
-            }]);
-        } else {
-            setItems([{
-                typeArticle: '',
-                modele: '',
-                designation: '',
-                couleur: '',
-                quantite: 0,
-                prixHT: 0,
-                prixTTC: 0,
-                tvaRate: 0,
-            }]);
-        }
-    }, [isMOTOForm]);
+        memoizedSetItems(() => {
+            if (isMOTOForm) {
+                return [{
+                    typeArticle: 'MOTOCYCLE',
+                    modele: '',
+                    designation: '',
+                    couleur: '',
+                    quantite: 0,
+                    prixHT: 0,
+                    prixTTC: 0,
+                    tvaRate: 0,
+                }];
+            } else {
+                return [{
+                    typeArticle: '',
+                    modele: '',
+                    designation: '',
+                    couleur: '',
+                    quantite: 0,
+                    prixHT: 0,
+                    prixTTC: 0,
+                    tvaRate: 0,
+                }];
+            }
+        });
+    }, [isMOTOForm, memoizedSetItems]);
+
+
 
     // 1) Create a handler for deleting an article by index
     const handleDeleteItem = (index) => {
@@ -256,11 +262,6 @@ const FormService = ({ handleClose }) => {
         ]);
     };
 
-    // Utility for precise division
-    const preciseDivide = (a, b) => Math.round((a / b) * 100) / 100;
-
-    // Utility for precise multiplication
-    const preciseMultiply = (a, b) => Math.round(a * b * 100) / 100;
 
     const handleItemChange = (index, field, value) => {
         const updated = [...items];
@@ -336,7 +337,7 @@ const FormService = ({ handleClose }) => {
             printWindow.print();
             printWindow.close();
         }
-    }, [isMOTOForm, dateInvoice, client, cin, address, items, matriculeFiscale]);
+    }, [isMOTOForm, dateInvoice, client, cin, address, items, matriculeFiscale, matriculeFiscaleList]);
 
     /**
      * Submit => print and close (if handleClose is provided)
@@ -621,7 +622,6 @@ const FormService = ({ handleClose }) => {
                                     <Grid item xs={1} style={{ display: "flex", alignItems: "flex-end" }}>
                                         <IconButton
                                             onClick={() => handleDeleteItem(index)}
-                                            style={{ marginTop: "25px" }}
                                         >
                                             <DeleteIcon color="error" />
                                         </IconButton>
@@ -634,7 +634,6 @@ const FormService = ({ handleClose }) => {
                                 style={{
                                     backgroundColor: "#28A745",
                                     color: "#fff",
-                                    marginTop: "10px",
                                 }}
                             >
                                 Ajouter un article
