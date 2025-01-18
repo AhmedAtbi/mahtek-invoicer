@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+@font-face {
+  font-family: 'Poppins';
+  src: url("fonts/Poppins-Regular.ttf") format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  margin: 0;
+  font-family: Poppins !important;
+}
+
+div,
+span,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+textarea,
+button,
+input {
+  font-family: Poppins !important;
+}
+
+
+
+svg[data-testid=CheckBoxIcon] {
+  color: black;
+  background-color: "white";
+}
+
+.rounded-2xl {
+  color: white !important;
+  font-family: Poppins !important;
+}
+
+.bg-blue-900 {
+  background-color: #8ebf43 !important;
+  font-family: Poppins !important;
+}
+
+.bg-blue-900:hover {
+  background-color: #056938;
+  font-family: Poppins !important;
+}
+
+
+.text-blue-900 {
+  color: #8ebf43;
+  font-family: Poppins !important;
+}
+
+input[inputmode=numeric] {
+  min-width: 125px;
+}
+
+.text-l,
+.text-xl {
+  color: #056938;
+  font-family: Poppins !important;
+}
+
+
+input[inputmode=text] {
+  min-width: 120px;
+}
+
+.border-blue-900,
+.w-24,
+.border-b-4,
+.border-blue-900 {
+  color: #8ebf43;
+  background-color: #056938;
+}
+
+input[name=adresse],
+input[name=nom-agent],
+input[name=prenom-agent] {
+  margin-left: 71px !important;
+}
+
+input[name=tarif],
+input[name=somme-espece] {
+  max-width: 150px !important;
+}
+
+
+input[name=last_name] {
+  margin-left: 20px !important;
+}
+
+input[name=tarif] {
+  margin-left: 145px !important;
+}
+
+input[name=nom-urgence] {
+  width: 153px !important;
+}
+
+
+md:text-2xl,
+p {
+  color: white !important;
+}
+
+.cheque-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 10px;
+}
+
+.cheque-item {
+  margin-bottom: 10px;
+}
+
+
+.hero {
+  background-image: url('images/facture.png');
+  /* Replace with your image path */
+  background-size: 40%;
+  /* Cover the entire area */
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  /* Full viewport height */
+  width: 100vw;
+  /* Full viewport width */
+  /* Center the background image */
+  /* Do not repeat the image */
+}
+
+
+.MuiSelect-outlined {
+  border-color: black !important;
+}
+
+.text-gray-400,
+.text-md,
+.font-medium,
+.text-gray-600 {
+  color: white !important;
+  font-family: Poppins !important;
+}
+
+button[id*=form],
+button[id=submitBtn],
+button[id=resetBtn] {
+  background-color: #4971cd !important;
+}
+
+a:hover,
+button:hover {
+  color: #056938 !important;
+  font-family: Poppins !important;
+}
+
+
+div[id*="phone-input-div"] {
+  right: 70px;
+  position: relative;
+  font-family: Poppins !important;
+}
+
+span[class="country-name"] {
+  color: black;
+  font-family: Poppins !important;
+}
+
+div[aria-describedby="alert-dialog-slide-description"] {
+  padding-bottom: 0px !important;
+  font-family: Poppins !important;
+}
+
+div[class*="MuiContainer-root MuiContainer-maxWidthLg"] {
+  overflow: hidden !important;
+  font-family: Poppins !important;
+}
+
+.text-lg,
+.font-medium,
+input[type='tel'],
+li[class="country"] {
+  color: black !important;
+  font-family: Poppins !important;
+}
+
+div[class*=MuiInputBase-adornedEnd]>div>button {
+  background-color: rgb(243 244 246) !important;
+}
+
+input,
+div[class*=select] {
+  background-color: rgb(243 244 246) !important;
+}
+
+input[type='tel'] {
+  background-color: rgb(243 244 246) !important;
+  font-family: Poppins !important;
+  ;
+}
+
+input[name*="somme cheque"],
+input[name*="n-cheque"] {
+  margin-left: 10px !important;
+  width: 140px !important;
+}
+
+input[type="checkbox"]:checked,
+.focus:ring-3,
+.focus:ring-blue-300 {
+  color: #056938 !important;
+  font-family: Poppins !important;
+}
+
+table[id=type-abonnement-table],
+div[role=dialog] {
+  background-color: rgb(247, 229, 216);
+}
