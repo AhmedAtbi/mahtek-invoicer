@@ -133,9 +133,10 @@ p {
   height: 100vh;
   /* Full viewport height */
   width: 100vw;
-  /* Full viewport width */
-  /* Center the background image */
-  /* Do not repeat the image */
+  background-color: rgb(247, 229, 216)
+    /* Full viewport width */
+    /* Center the background image */
+    /* Do not repeat the image */
 }
 
 

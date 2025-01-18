@@ -17,7 +17,8 @@ const NavBar = () => {
                     background: `white`,
                     marginBottom: "20%",
                     borderBottomLeftRadius: "20px",
-                    borderBottomRightRadius: "20px"
+                    borderBottomRightRadius: "20px",
+                    backgroundColor: "rgb(247, 229, 216)"
                 }}
             >
                 <Toolbar sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
