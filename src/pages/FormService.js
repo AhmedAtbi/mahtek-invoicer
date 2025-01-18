@@ -158,7 +158,7 @@ const generatePrintContent = ({
     </body>
   </html>
   `;
-  
+
 };
 
 
@@ -256,14 +256,43 @@ const FormService = ({ handleClose }) => {
         ]);
     };
 
-    /**
-     * Update a field for a given item
-     */
+    // Utility for precise division
+    const preciseDivide = (a, b) => Math.round((a / b) * 100) / 100;
+
+    // Utility for precise multiplication
+    const preciseMultiply = (a, b) => Math.round(a * b * 100) / 100;
+
     const handleItemChange = (index, field, value) => {
         const updated = [...items];
+
+        // Update the field value
         updated[index][field] = value;
+
+        // Parse necessary values
+        const tvaRate = parseFloat(updated[index].tvaRate || 0);
+        const prixTTC = parseFloat(updated[index].prixTTC || 0);
+        const prixHT = parseFloat(updated[index].prixHT || 0);
+
+        if (field === "prixTTC" || field === "tvaRate") {
+            if (!isNaN(tvaRate) && !isNaN(prixTTC)) {
+                // Update HT using precise division
+                updated[index].prixHT = preciseDivide(prixTTC, 1 + tvaRate / 100);
+            }
+        }
+
+        if (field === "prixHT" || field === "tvaRate") {
+            if (!isNaN(tvaRate) && !isNaN(prixHT)) {
+                // Update TTC using precise multiplication
+                updated[index].prixTTC = preciseMultiply(prixHT, 1 + tvaRate / 100);
+            }
+        }
+
+        // Update the state
         setItems(updated);
     };
+
+
+
     /**
      * Clear all fields
      */
@@ -578,7 +607,6 @@ const FormService = ({ handleClose }) => {
                                         <label style={{ fontWeight: "bold", color: "#444" }}>Prix TTC</label>
                                         <input
                                             type="number"
-                                            disabled // user cannot edit
                                             style={{
                                                 width: "100%",
                                                 padding: "10px",
@@ -586,7 +614,8 @@ const FormService = ({ handleClose }) => {
                                                 border: "1px solid #ccc",
                                                 marginTop: "8px",
                                             }}
-                                            value={item.prixTTC.toFixed(2)}
+                                            onChange={(e) => handleItemChange(index, "prixTTC", e.target.value)}
+                                            value={item.prixTTC ? Number(item.prixTTC).toFixed(2) : '0.00'} // Safely handle non-numeric values
                                         />
                                     </Grid>
                                     <Grid item xs={1} style={{ display: "flex", alignItems: "flex-end" }}>
